@@ -18,14 +18,27 @@ export const SKILLS: {
   },
   {
     group: "tecnologias",
-    items: ["<tecnologia>"],
+    items: [
+      "react",
+      "tailwind css",
+      "express.js",
+      "next.js",
+      "postgresql",
+      "sqlite",
+    ],
   },
   {
     group: "ferramentas",
-    items: ["<ferramenta>"],
+    items: ["node.js", "vscode", "git", "npm", "pip", "obsidian"],
   },
   {
     group: "outros",
-    items: ["<outro>"],
+    items: [
+      "inglês",
+      "automação",
+      "algoritmos",
+      "estruturas de dados",
+      "capacidade analítica",
+    ],
   },
 ];

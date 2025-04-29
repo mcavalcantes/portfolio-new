@@ -13,6 +13,6 @@ export const ACHIEVEMENTS: {
     title: "pato'",
     subtitle: "1º lugar",
     description:
-      "competição universitária de cálculo sediada anualmente na utfpr de pato branco.",
+      "competição universitária de cálculo sediada em maio de 2024 na utfpr de pato branco, em que 32 alunos foram qualificados para a segunda fase.",
   },
 ];

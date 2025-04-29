@@ -1,5 +1,11 @@
 import { useState } from "react";
 
+import { SKILLS } from "./data/skills";
+import { EXPERIENCES } from "./data/experiences";
+import { PROJECTS } from "./data/projects";
+import { ACHIEVEMENTS } from "./data/achievements";
+import { SOCIALS } from "./data/socials";
+
 export default function App() {
   const [darkTheme, setDarkTheme] = useState(false);
 
@@ -35,7 +41,7 @@ export default function App() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setDarkTheme(!darkTheme)}
-            className="grid h-8 w-8 cursor-pointer place-items-center"
+            className="grid h-8 w-8 cursor-pointer place-items-center hover:bg-neutral-200"
           >
             {darkTheme ? (
               <svg
@@ -92,32 +98,108 @@ export default function App() {
         </div>
       </header>
       <main className="flex flex-col">
-        <section className="debug flex flex-col md:items-center">
-          <h1 className="w-full border-2 border-purple-500 text-5xl text-wrap md:text-center">
+        <section className="flex flex-col md:items-center">
+          <h1 className="w-full text-5xl text-wrap md:text-center">
             matheus cavalcante
           </h1>
           <p>portfólio pessoal</p>
         </section>
-        <section className="debug flex flex-col">
+        <section className="flex flex-col">
           <h2 className="text-xl">sobre</h2>
+          <p className="text-sm">
+            estudante do 5º período de engenharia de computação munido de alta
+            capacidade analítica, extrema versatilidade para resolver problemas
+            complexos, forte aptidão com exatas, e paixão por ensinar e ajudar
+            quem conhece. um líder natural, sou uma pessoa que busca
+            incansavelmente o aprimoramento de si e dos outros.
+          </p>
         </section>
-        <section className="debug flex flex-col">
-          <h2 className="text-xl">educação</h2>
-        </section>
-        <section className="debug flex flex-col">
+        <section className="flex flex-col">
           <h2 className="text-xl">habilidades</h2>
+          <ul>
+            {SKILLS.map((skill, index) => (
+              <li key={index}>
+                <div className="flex flex-col">
+                  <h3>{skill.group}</h3>
+                  <ul className="flex flex-row gap-2 text-sm">
+                    {skill.items.map((item, index) => (
+                      <li
+                        className="rounded-full border border-black px-2"
+                        key={index}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
-        <section className="debug flex flex-col">
+        <section className="flex flex-col">
           <h2 className="text-xl">experiência</h2>
+          <ul>
+            {EXPERIENCES.map((experience, index) => (
+              <li key={index}>
+                <div className="flex flex-col">
+                  <h3>{experience.title}</h3>
+                  <h4 className="text-sm">{experience.subtitle}</h4>
+                  <ul className="list-inside list-disc text-sm">
+                    {experience.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
-        <section className="debug flex flex-col">
+        <section className="flex flex-col">
           <h2 className="text-xl">projetos</h2>
+          <ul>
+            {PROJECTS.map((project, index) => (
+              <li key={index}>
+                <div className="flex flex-col">
+                  <h3>
+                    <a href={project.link} className="underline">
+                      {project.title}
+                    </a>
+                  </h3>
+                  <p className="text-sm">{project.description}</p>
+                  <ul className="list-inside list-disc text-sm">
+                    {project.items &&
+                      project.items.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
-        <section className="debug flex flex-col">
+        <section className="flex flex-col">
           <h2 className="text-xl">conquistas</h2>
+          <ul>
+            {ACHIEVEMENTS.map((achievement, index) => (
+              <li key={index}>
+                <div className="flex flex-col">
+                  <h3>{achievement.title}</h3>
+                  <h4 className="text-sm">{achievement.subtitle}</h4>
+                  <p className="text-sm">{achievement.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
-        <section className="debug flex flex-col">
+        <section className="flex flex-col">
           <h2 className="text-xl">social</h2>
+          <ul>
+            {SOCIALS.map((social) => (
+              <li key={social.name}>
+                <a href={social.link} className="underline">
+                  {social.name}
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
       </main>
       <footer className="mt-auto grid h-16 place-items-center">
