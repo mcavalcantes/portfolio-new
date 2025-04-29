@@ -4,23 +4,13 @@ export const SKILLS: {
 }[] = [
   {
     group: "linguagens",
-    items: [
-      "typescript",
-      "javascript",
-      "python",
-      "java",
-      "sql",
-      "c",
-      "c++",
-      "html",
-      "css",
-    ],
+    items: ["typescript", "javascript", "python", "java", "sql", "c/c++"],
   },
   {
     group: "tecnologias",
     items: [
       "react",
-      "tailwind css",
+      "tailwind",
       "express.js",
       "next.js",
       "postgresql",
@@ -36,9 +26,10 @@ export const SKILLS: {
     items: [
       "inglês",
       "automação",
+      "scripting",
       "algoritmos",
-      "estruturas de dados",
-      "capacidade analítica",
+      "comunicação",
+      "liderança",
     ],
   },
 ];

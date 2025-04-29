@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #fafafa;
+  --text: #1f1f1f;
+}
+
+.dark {
+  --background: #141414;
+  --text: #ebebeb;
+}
+
 .debug {
   border: 1px solid red;
 }
@@ -42,4 +54,9 @@
   font-weight: 700;
   font-display: swap;
   src: url("assets/fonts/geistmono/GeistMono-Bold.woff2") format("woff2");
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
 }

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
 import { SKILLS } from "./data/skills";
@@ -7,12 +8,35 @@ import { ACHIEVEMENTS } from "./data/achievements";
 import { SOCIALS } from "./data/socials";
 
 export default function App() {
-  const [darkTheme, setDarkTheme] = useState(false);
+  useEffect(() => {
+    let userPageTheme = localStorage.getItem("pageTheme");
 
+    if (!userPageTheme) {
+      userPageTheme = "light";
+      localStorage.setItem("pageTheme", userPageTheme);
+    }
+
+    document.documentElement.classList.add(userPageTheme);
+    setPageTheme(userPageTheme);
+  }, []);
+
+  function handleClick(pageTheme: string | null) {
+    if (!pageTheme) throw new Error("`pageTheme` value is null");
+
+    const newTheme = pageTheme === "light" ? "dark" : "light";
+
+    document.documentElement.classList.remove(pageTheme);
+    document.documentElement.classList.add(newTheme);
+
+    localStorage.setItem("pageTheme", newTheme);
+    setPageTheme(newTheme);
+  }
+
+  const [pageTheme, setPageTheme] = useState<string | null>(null);
   const dateNow = new Date();
 
   return (
-    <div className="flex min-h-screen flex-col px-4 font-[Geist_Mono] md:px-36 xl:px-96">
+    <div className="flex min-h-screen flex-col bg-[var(--background)] px-4 font-[Geist_Mono] text-[var(--text)] md:px-36 xl:px-96">
       <header className="flex items-center justify-between py-4">
         <div>
           <svg
@@ -24,12 +48,15 @@ export default function App() {
             className="size-12"
           >
             <g clipPath="url(#clip0_3_2)">
-              <path d="M480 480L480 240L464 256V480H480Z" fill="black" />
-              <path d="M240 480L480 240L240 240L240 480Z" fill="black" />
-              <path d="M0 480L240 240L1.52588e-05 240L0 480Z" fill="black" />
-              <path d="M480 0L240 240H480L480 0Z" fill="black" />
-              <path d="M240 0L0 240H240L240 0Z" fill="black" />
-              <path d="M0 0V240L16 224V0H0Z" fill="black" />
+              <path d="M480 480L480 240L464 256V480H480Z" fill="currentColor" />
+              <path d="M240 480L480 240L240 240L240 480Z" fill="currentColor" />
+              <path
+                d="M0 480L240 240L1.52588e-05 240L0 480Z"
+                fill="currentColor"
+              />
+              <path d="M480 0L240 240H480L480 0Z" fill="currentColor" />
+              <path d="M240 0L0 240H240L240 0Z" fill="currentColor" />
+              <path d="M0 0V240L16 224V0H0Z" fill="currentColor" />
             </g>
             <defs>
               <clipPath id="clip0_3_2">
@@ -40,10 +67,10 @@ export default function App() {
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => setDarkTheme(!darkTheme)}
-            className="grid h-8 w-8 cursor-pointer place-items-center hover:bg-neutral-200"
+            onClick={() => handleClick(pageTheme)}
+            className="grid h-8 w-8 cursor-pointer place-items-center hover:bg-[#e6e6e6] dark:hover:bg-[#333333]"
           >
-            {darkTheme ? (
+            {pageTheme === "light" ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -77,7 +104,7 @@ export default function App() {
           </button>
           <a
             href="/curriculo.pdf"
-            className="flex h-8 items-center gap-1 rounded-full bg-black px-2 text-white hover:bg-neutral-700"
+            className="flex h-8 items-center gap-1 rounded-full bg-[var(--text)] px-2 text-[var(--background)] hover:bg-[#333333] dark:hover:bg-[#e6e6e6]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -97,15 +124,17 @@ export default function App() {
           </a>
         </div>
       </header>
-      <main className="flex flex-col">
-        <section className="flex flex-col md:items-center">
-          <h1 className="w-full text-5xl text-wrap md:text-center">
+
+      <main className="flex flex-col gap-8">
+        <section>
+          <h1 className="w-full py-8 text-5xl text-wrap md:text-center">
             matheus cavalcante
           </h1>
           <p>portfólio pessoal</p>
         </section>
-        <section className="flex flex-col">
-          <h2 className="text-xl">sobre</h2>
+
+        <section>
+          <h2 className="py-2 text-2xl font-semibold">sobre</h2>
           <p className="text-sm">
             estudante do 5º período de engenharia de computação munido de alta
             capacidade analítica, extrema versatilidade para resolver problemas
@@ -114,20 +143,22 @@ export default function App() {
             incansavelmente o aprimoramento de si e dos outros.
           </p>
         </section>
-        <section className="flex flex-col">
-          <h2 className="text-xl">habilidades</h2>
-          <ul>
+
+        <section>
+          <h2 className="py-2 text-2xl font-semibold">habilidades</h2>
+          <ul className="flex flex-col gap-4">
             {SKILLS.map((skill, index) => (
               <li key={index}>
                 <div className="flex flex-col">
-                  <h3>{skill.group}</h3>
-                  <ul className="flex flex-row gap-2 text-sm">
+                  <div className="pb-2">
+                    <h3 className="font-medium">{skill.group}</h3>
+                  </div>
+                  <ul className="flex flex-row flex-wrap gap-2 text-sm">
                     {skill.items.map((item, index) => (
-                      <li
-                        className="rounded-full border border-black px-2"
-                        key={index}
-                      >
-                        {item}
+                      <li key={index}>
+                        <div className="grid h-6 place-items-center rounded-full border border-[var(--text)] px-2 select-none hover:bg-[var(--text)] hover:text-[var(--background)]">
+                          {item}
+                        </div>
                       </li>
                     ))}
                   </ul>
@@ -136,17 +167,20 @@ export default function App() {
             ))}
           </ul>
         </section>
+
         <section className="flex flex-col">
-          <h2 className="text-xl">experiência</h2>
-          <ul>
+          <h2 className="py-2 text-2xl font-semibold">experiência</h2>
+          <ul className="flex flex-col gap-4">
             {EXPERIENCES.map((experience, index) => (
               <li key={index}>
-                <div className="flex flex-col">
-                  <h3>{experience.title}</h3>
-                  <h4 className="text-sm">{experience.subtitle}</h4>
-                  <ul className="list-inside list-disc text-sm">
-                    {experience.items.map((item) => (
-                      <li>{item}</li>
+                <div className="flex flex-col border border-[var(--text)] p-4">
+                  <div className="pb-2">
+                    <h3 className="font-medium">{experience.title}</h3>
+                    <h4 className="text-sm">{experience.subtitle}</h4>
+                  </div>
+                  <ul className="flex list-inside list-disc flex-col gap-1 text-sm">
+                    {experience.items.map((item, index) => (
+                      <li key={index}>{item}</li>
                     ))}
                   </ul>
                 </div>
@@ -154,46 +188,55 @@ export default function App() {
             ))}
           </ul>
         </section>
-        <section className="flex flex-col">
-          <h2 className="text-xl">projetos</h2>
-          <ul>
+
+        <section>
+          <h2 className="py-2 text-2xl font-semibold">projetos</h2>
+          <ul className="flex flex-col gap-4">
             {PROJECTS.map((project, index) => (
               <li key={index}>
-                <div className="flex flex-col">
-                  <h3>
-                    <a href={project.link} className="underline">
-                      {project.title}
-                    </a>
-                  </h3>
-                  <p className="text-sm">{project.description}</p>
-                  <ul className="list-inside list-disc text-sm">
+                <div className="flex flex-col border border-[var(--text)] p-4">
+                  <div className="pb-2">
+                    <h3>
+                      <a href={project.link} className="font-medium underline">
+                        {project.title}
+                      </a>
+                    </h3>
+                  </div>
+                  <p className="pb-2 text-sm">{project.description}</p>
+                  <ul className="flex list-inside list-disc flex-col gap-1 text-sm">
                     {project.items &&
-                      project.items.map((item) => <li>{item}</li>)}
+                      project.items.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
                   </ul>
                 </div>
               </li>
             ))}
           </ul>
         </section>
-        <section className="flex flex-col">
-          <h2 className="text-xl">conquistas</h2>
-          <ul>
+
+        <section>
+          <h2 className="py-2 text-2xl font-semibold">conquistas</h2>
+          <ul className="flex flex-col gap-4">
             {ACHIEVEMENTS.map((achievement, index) => (
               <li key={index}>
-                <div className="flex flex-col">
-                  <h3>{achievement.title}</h3>
-                  <h4 className="text-sm">{achievement.subtitle}</h4>
+                <div className="flex flex-col border border-[var(--text)] p-4">
+                  <div className="pb-2">
+                    <h3 className="font-medium">{achievement.title}</h3>
+                    <h4 className="text-sm">{achievement.subtitle}</h4>
+                  </div>
                   <p className="text-sm">{achievement.description}</p>
                 </div>
               </li>
             ))}
           </ul>
         </section>
-        <section className="flex flex-col">
-          <h2 className="text-xl">social</h2>
+
+        <section>
+          <h2 className="py-2 text-2xl font-semibold">social</h2>
           <ul>
-            {SOCIALS.map((social) => (
-              <li key={social.name}>
+            {SOCIALS.map((social, index) => (
+              <li key={index}>
                 <a href={social.link} className="underline">
                   {social.name}
                 </a>
@@ -202,7 +245,8 @@ export default function App() {
           </ul>
         </section>
       </main>
-      <footer className="mt-auto grid h-16 place-items-center">
+
+      <footer className="mt-auto grid h-20 place-items-center">
         <p className="text-xs">{`© ${dateNow.getFullYear()} · Matheus Cavalcante`}</p>
       </footer>
     </div>
