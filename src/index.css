@@ -4,6 +4,18 @@
   border: 1px solid red;
 }
 
+.debug-1 {
+  border: 1px solid red;
+}
+
+.debug-2 {
+  border: 1px solid green;
+}
+
+.debug-3 {
+  border: 1px solid blue;
+}
+
 @font-face {
   font-family: "Geist Mono";
   font-style: normal;

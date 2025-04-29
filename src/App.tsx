@@ -7,8 +7,8 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen flex-col px-4 font-[Geist_Mono] md:px-36 xl:px-96">
-      <header className="debug flex items-center justify-between py-4">
-        <div className="debug">
+      <header className="flex items-center justify-between py-4">
+        <div>
           <svg
             width="480"
             height="480"
@@ -32,10 +32,10 @@ export default function App() {
             </defs>
           </svg>
         </div>
-        <div className="debug flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setDarkTheme(!darkTheme)}
-            className="debug grid h-8 w-8 cursor-pointer place-items-center"
+            className="grid h-8 w-8 cursor-pointer place-items-center"
           >
             {darkTheme ? (
               <svg
@@ -71,7 +71,7 @@ export default function App() {
           </button>
           <a
             href="/curriculo.pdf"
-            className="debug flex h-8 items-center justify-evenly gap-1 rounded-full bg-black px-2 text-white hover:bg-neutral-700"
+            className="flex h-8 items-center gap-1 rounded-full bg-black px-2 text-white hover:bg-neutral-700"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +79,7 @@ export default function App() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="debug size-5"
+              className="size-6"
             >
               <path
                 strokeLinecap="round"
@@ -87,7 +87,7 @@ export default function App() {
                 d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
               />
             </svg>
-            <p className="debug text-sm">currículo</p>
+            <p>currículo</p>
           </a>
         </div>
       </header>
