@@ -38,8 +38,8 @@ export const PROJECTS: {
     ],
   },
   {
-    link: "https://mcavalcante.netlify.app/",
-    title: "portfólio (antigo)",
+    link: "https://mcavalcantes.netlify.app/",
+    title: "portfólio",
     description:
       "website pessoal que visa mostrar, de forma completa, minhas habilidades, experiências, projetos, e conquistas.",
     items: [
